@@ -200,10 +200,13 @@ async def main():
     
     rng = np.random.default_rng(seed=42)
 
-    theta_list = rng.normal(size=(T, d))
-    # Normalize theta to fixed norm G
-    Theta_norms = np.linalg.norm(theta_list, axis=1, keepdims=True)
-    theta_list = theta_list / Theta_norms * G
+    theta = rng.normal(size=(d,))
+    #  Normalize theta to fixed norm G
+    theta = theta / np.linalg.norm(theta) * G   #
+
+    # Same theta
+    theta_list = np.tile(theta, (T, 1))
+    
         
     for k in range(50):
         # Different corruption levels
@@ -258,12 +261,6 @@ async def main():
 
     # Plot results
     plt.plot(C_list, average_C_loss1, color="orange", label="Shrunk-SCRiBLe", linestyle='-', marker='o')
-    # plt.fill_between(
-    #     C_list,
-    #     np.array(average_C_loss1) - np.array(ci_C_loss1),
-    #     np.array(average_C_loss1) + np.array(ci_C_loss1),
-    #     alpha=0.5
-    # )
     plt.errorbar(
     C_list,
     average_C_loss1,
@@ -299,10 +296,6 @@ async def main():
     plt.ylabel("Cumulative loss")
     plt.title("Shrunk-SCRiBLe vs SCRiBLe vs Thompson Sampling with T=2000")
 
-    plt.ylim(
-        # bottom=min(min(average_C_loss1), max(average_C_loss2), max(average_C_loss3)) * 1.3,
-        top=max(max(average_C_loss1), max(average_C_loss2), max(average_C_loss3)) * 1.1
-    )
 
     plt.grid(True)
     plt.legend()
