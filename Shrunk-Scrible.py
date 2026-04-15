@@ -114,7 +114,7 @@ async def ShrunkScrible(C_loss_list1, epsilon, theta_list, u_list, d, T, D):
     x_t = np.zeros(d)
     grad_sum = np.zeros(d)
 
-    delta = T**(-2)
+    delta = T**(-1)
     if epsilon != 0:
         delta = np.sqrt(epsilon)
 
