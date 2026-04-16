@@ -179,9 +179,6 @@ async def main():
     C_loss_list1 = []
     C_loss_list2 = []
     C_loss_list3 = []
-    All_reward1 = 0
-    All_reward2 = 0
-    All_reward3 = 0
     
     d = 10
     T = 2000
@@ -195,9 +192,12 @@ async def main():
     rng = np.random.default_rng(seed=42)
         
     for k in range(n):
+        All_reward1 = 0
+        All_reward2 = 0
+        All_reward3 = 0
+        
         g1 = np.zeros(d)
         g2 = np.zeros(d)
-       
         x1 = np.zeros(d)
         x2 = np.zeros(d)
         lambda_ = 1.0
